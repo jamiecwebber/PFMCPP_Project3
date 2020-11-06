@@ -78,11 +78,12 @@ int main()
 
 struct AcousticGuitar 
 {
-    int numStrings = 6;
-    int numFrets = 18;
-    int capoFretNumber = 7;
-    int yearOfConstruction = 1972;
-    bool hasAmplification = true;
+    AcousticGuitar();
+    int numStrings;
+    int numFrets;
+    int capoFretNumber;
+    int yearOfConstruction;
+    bool hasAmplification;
 
     void playNote(int stringNumber, int fretNumber);
 
@@ -91,14 +92,27 @@ struct AcousticGuitar
     void tuneString(int stringNumber, float tuningFrequency);
 };
 
+AcousticGuitar::AcousticGuitar()
+{
+    numStrings = 6;
+    numFrets = 18;
+    capoFretNumber = 7;
+    yearOfConstruction = 1972;
+    hasAmplification = true;
+}
+
 void AcousticGuitar::playNote(int stringNumber, int fretNumber)
 {
-    stringNumber = stringNumber + fretNumber;
+    int noteNumber = ((6 - stringNumber) * 5) + fretNumber;
+    if (stringNumber <= 2) noteNumber -= 1;
+
+    std::cout << "play note: " << noteNumber << std::endl;
 }
 
 void AcousticGuitar::playChord(std::string chordName)
 {
     chordName = chordName + " strum";
+    std::cout << chordName << std::endl;
 }
 
 void AcousticGuitar::tuneString(int stringNumber, float tuningFrequency)
@@ -123,11 +137,12 @@ void AcousticGuitar::tuneString(int stringNumber, float tuningFrequency)
 
 struct Library
 {
-    int numBooks = 100;
-    int numMembers = 100;
-    float lateFee = 1.25f;
-    int maxBooksLoaned = 5;
-    int maxDaysLoan = 14;
+    Library();
+    int numBooks;
+    int numMembers;
+    float lateFee;
+    int maxBooksLoaned;
+    int maxDaysLoan;
 
     void checkOutBook(std::string bookTitle);
 
@@ -135,6 +150,15 @@ struct Library
 
     bool isBookInLibrary(std::string bookTitle);
 };
+
+Library::Library()
+{
+    numBooks = 100;
+    numMembers = 100;
+    lateFee = 1.25f;
+    maxBooksLoaned = 5;
+    maxDaysLoan = 14;  
+}
 
 void Library::checkOutBook(std::string bookTitle)
 {
@@ -168,11 +192,12 @@ bool Library::isBookInLibrary(std::string bookTitle)
 
 struct SmartBulb
 {
-    int watts = 200;
-    float brightness = 0.8f;
-    bool isOn = false;
-    float totalEnergy = 0.f;
-    float totalHoursOn = 0.f;
+    SmartBulb();
+    int watts;
+    float brightness;
+    bool isOn;
+    float totalEnergy;
+    float totalHoursOn;
 
     void toggle();
 
@@ -181,6 +206,15 @@ struct SmartBulb
     void alertReplacement();
 
 };
+
+SmartBulb::SmartBulb()
+{
+    watts = 200;
+    brightness = 0.8f;
+    isOn = false;
+    totalEnergy = 0.f;
+    totalHoursOn = 0.f;
+}
 
 void SmartBulb::toggle()
 {
@@ -213,16 +247,26 @@ void SmartBulb::alertReplacement()
  */
 struct Cat
 {
-    int age = 1;
-    bool isMale = false;
-    bool isTabby = true;
-    float hunger = 0.5f;
-    float thirst = 0.5f;
+    Cat();
+    int age;
+    bool isMale;
+    bool isTabby;
+    float hunger;
+    float thirst;
 
     void purr();
     void meow();
-    void drink(float volumeOfWater = 0.2f);
+    void drink(float volumeOfWater);
 };
+
+Cat::Cat()
+{
+    age = 1;
+    isMale = false;
+    isTabby = true;
+    hunger = 0.5f;
+    thirst = 10.f;  
+}
 
 void Cat::purr()
 {
@@ -231,12 +275,12 @@ void Cat::purr()
 
 void Cat::meow()
 {
-
+    std::cout << "meow! Kitty wants attention" << std::endl;
 }
     
-void Cat::drink(float volumeOfWater)
+void Cat::drink(float volumeOfWater = 0.2f)
 {
-    volumeOfWater -= 0.2f;
+    thirst -= volumeOfWater;
 }
 
 
@@ -256,8 +300,8 @@ Thing 5) Harmonic set (generates a set of frequencies from two input frequencies
 
 struct HarmonicSet
 {
-    float bassFrequency = 220.0f;
-    float genFrequency = 440.0f;
+    HarmonicSet();
+    float bassFrequency, genFrequency;
 
     void playSet(float minFrequency, float maxFrequency);
 
@@ -265,6 +309,12 @@ struct HarmonicSet
 
     void playFiltered(float minFrequency, float maxFrequency, int genRule);
 };
+
+HarmonicSet::HarmonicSet()
+{
+    bassFrequency = 220.0f;
+    genFrequency = 440.0f;
+}
 
 void HarmonicSet::playSet(float minFrequency, float maxFrequency)
 {
@@ -313,17 +363,19 @@ Thing 6) Rhythmic Rules
 
 struct RhythmicRules
 {
-    float gapPercentage = 0.2f;
-    float convolutionRate = 0.5f;
-    float tempo = 120.f;
-    float variation = 1.0f;
+    RhythmicRules();
+    float gapPercentage;
+    float convolutionRate;
+    float tempo;
+    float variation;
 
     struct Meter
     {
-        int numerator = 4; 
-        int denominator = 4; 
-        int tempo = 120; 
-        int bars = 8; 
+        Meter();
+        int numerator; 
+        int denominator; 
+        int tempo; 
+        int bars; 
 
         int bigStep(int currentBeat, int smallestBeat, int beatsPerBigStep); 
         int littleStep(int currentBeat, int smallestBeat); 
@@ -336,6 +388,22 @@ struct RhythmicRules
 
     float setTempo(float newTempo);
 };
+
+RhythmicRules::RhythmicRules()
+{
+    gapPercentage = 0.2f;
+    convolutionRate = 0.5f;
+    tempo = 120.f;
+    variation = 1.0f;
+}
+
+RhythmicRules::Meter::Meter()
+{
+    numerator = 4; 
+    denominator = 4; 
+    tempo = 120; 
+    bars = 8; 
+}
 
 void RhythmicRules::outputRhythm(Meter meter)
 {
@@ -383,20 +451,21 @@ Thing 7) Pattern Generator
 
 struct PatternGenerator
 {
-    float rootedness = 1.0f;
-    float repetitionPercentage = 0.15f;
-    int stepSize = 2;
-    float variability = 1.0f;
-    float fractalDimension = 1.618f;
+    PatternGenerator();
+    float rootedness;
+    float repetitionPercentage;
+    int stepSize;
+    float variability;
+    float fractalDimension;
 
     struct Pattern
     {
-
-        bool repeat = false; 
-        int numberOfNotes = 5;  
-        int startingMIDI = 69;  
-        bool isArpeggio = true;    
-        std::string patternName = "triads";
+        Pattern();
+        bool repeat; 
+        int numberOfNotes;  
+        int startingMIDI;  
+        bool isArpeggio;    
+        std::string patternName;
 
         void play();
         void reverse();
@@ -407,6 +476,24 @@ struct PatternGenerator
     void calculateNote(HarmonicSet harmonies);
     Pattern generatePattern();
 };
+
+PatternGenerator::PatternGenerator()
+{
+    rootedness = 1.0f;
+    repetitionPercentage = 0.15f;
+    stepSize = 2;
+    variability = 1.0f;
+    fractalDimension = 1.618f;
+}
+
+PatternGenerator::Pattern::Pattern()
+{
+    repeat = false; 
+    numberOfNotes = 5;  
+    startingMIDI = 69;  
+    isArpeggio = true;    
+    patternName = "triads";
+}
 
 void PatternGenerator::getRhythm(RhythmicRules rhythms)
 {
@@ -422,12 +509,13 @@ void PatternGenerator::calculateNote(HarmonicSet harmonies)
 PatternGenerator::Pattern PatternGenerator::generatePattern()
 {
     PatternGenerator::Pattern newPattern;
+    std::cout << "new pattern: 12345" << std::endl;
     return newPattern;
 }
 
 void PatternGenerator::Pattern::play()
 {
-
+    std::cout << patternName << std::endl;
 }
 
 void PatternGenerator::Pattern::reverse()
@@ -455,16 +543,27 @@ Thing 8) Synthesizer
  */
 struct Synthesizer
 {
-    std::string waveShape = "sine";
-    float amplitude = 1.0f;
-    float attackTime = 2.0f;
-    int maxPolyphony = 6;
-    float distortion = 1.0f;
+    Synthesizer();
+    std::string waveShape;
+    float amplitude;
+    float attackTime;
+    int maxPolyphony;
+    float distortion;
+
     void getPattern(PatternGenerator patternGen);
     void getUI();
     void playAudio(float duration);
 
 };
+
+Synthesizer::Synthesizer()
+{
+    waveShape = "sine";
+    amplitude = 1.0f;
+    attackTime = 2.0f;
+    maxPolyphony = 6;
+    distortion = 1.0f;
+}
 
 void Synthesizer::getPattern(PatternGenerator patternGen)
 {
@@ -496,10 +595,11 @@ Thing 9) Distortion
  */
 struct Distortion
 {
-    float brightness = 0.5f;
-    int numEchoes = 3;
-    float roughness = 0.8f;
-    int vinylTap = 11;
+    Distortion();
+    float brightness;
+    int numEchoes;
+    float roughness;
+    int vinylTap;
 
     void processInput();
 
@@ -508,9 +608,17 @@ struct Distortion
     bool toggleBypass(bool bypass = false);
 };
 
+Distortion::Distortion()
+{
+    brightness = 0.5f;
+    numEchoes = 3;
+    roughness = 0.8f;
+    vinylTap = 11;
+}
+
 void Distortion::processInput()
 {
-
+    std::cout << "DISTORRTIIOOOOON"<< std::endl;
 }
 
 float Distortion::calculateBrightness(float roomSize, float hiPass, float loPass)
@@ -547,6 +655,7 @@ bool Distortion::toggleBypass(bool bypass)
 
 struct MelodicSequencer
 {
+    MelodicSequencer();
     HarmonicSet harmonicSet;
     RhythmicRules rhythmicRules;
     PatternGenerator patternGenerator;
@@ -557,8 +666,14 @@ struct MelodicSequencer
     int getUI(int screenWidth = 400, int screenHeight = 300);
 };
 
+MelodicSequencer::MelodicSequencer()
+{
+    // everything the MelodicSequencer contains has its own constructor
+}
+
 void MelodicSequencer::playSequence(bool repeat)
 {
+    std::cout << "playing sequence 12345" << std::endl;
     if (repeat)
     {
         MelodicSequencer newSequencer;
@@ -595,5 +710,49 @@ int MelodicSequencer::getUI(int screenWidth, int screenHeight)
 int main()
 {
     Example::main();
+
+    AcousticGuitar ag;
+    ag.playChord("G");
+    ag.playNote(6,0); // should be note 0
+    ag.playNote(6,7); // these represent string number and fret number
+    ag.playNote(5,0);
+    ag.playNote(3,4); 
+    ag.playNote(2,0);
+    ag.playChord("D");
+    ag.playChord("A");
+
+
+    Cat cat;
+    cat.meow();
+    std::cout << "cat is tabby? : " << cat.isTabby << std::endl;
+    std::cout << "cat is male? : " << cat.isMale << std::endl;
+    std::cout << "cat thirst before drinking: " << cat.thirst << std::endl;
+    cat.drink();
+    std::cout << "after drinking default: " << cat.thirst << std::endl;
+    cat.drink(2.0f);
+    std::cout << "after drinking 2.0f: " << cat.thirst << std::endl;
+
+
+    PatternGenerator::Pattern pattern;
+    std::cout << "pattern's name: " << pattern.patternName << std::endl;
+    pattern.play(); // prints the same name
+
+    PatternGenerator pg;
+    pg.generatePattern(); // prints "new pattern: 12345"
+
+
+    Distortion ds;
+    ds.processInput();
+    std::cout << "brightness: " << ds.calculateBrightness(250.f, 300.f, 100.f) << std::endl;
+    std::cout << "brightness: " << ds.calculateBrightness(350.f, 300.f, 200.f) << std::endl;
+
+
+    MelodicSequencer ms;
+    std::cout << "do repeat:"<< std::endl;
+    ms.playSequence(true);
+    std::cout << "don't repeat:"<< std::endl;
+    ms.playSequence(false);
+
+
     std::cout << "good to go!" << std::endl;
 }
