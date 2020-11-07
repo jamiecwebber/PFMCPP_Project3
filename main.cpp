@@ -88,7 +88,8 @@ AcousticGuitar::AcousticGuitar()
 void AcousticGuitar::playNote(int stringNumber, int fretNumber)
 {
     int noteNumber = ((6 - stringNumber) * 5) + fretNumber;
-    if (stringNumber <= 2) noteNumber -= 1;
+    if (stringNumber <= 2) 
+        noteNumber -= 1;
 
     std::cout << "play note: " << noteNumber << std::endl;
 }
@@ -121,12 +122,19 @@ void AcousticGuitar::tuneString(int stringNumber, float tuningFrequency)
 
 struct Library
 {
-    Library();
+    
     int numBooks;
     int numMembers;
     float lateFee;
     int maxBooksLoaned;
     int maxDaysLoan;
+
+    Library() : 
+        numBooks(100),
+        numMembers(100),
+        lateFee(1.25f),
+        maxBooksLoaned(5),
+        maxDaysLoan(14) {}
 
     void checkOutBook(std::string bookTitle);
 
@@ -135,18 +143,9 @@ struct Library
     bool isBookInLibrary(std::string bookTitle);
 };
 
-Library::Library()
-{
-    numBooks = 100;
-    numMembers = 100;
-    lateFee = 1.25f;
-    maxBooksLoaned = 5;
-    maxDaysLoan = 14;  
-}
-
 void Library::checkOutBook(std::string bookTitle)
 {
-    std::cout << bookTitle << std::endl;
+    std::cout << bookTitle << " checked out for " << maxDaysLoan << " days." << std::endl;
 }
 
 void Library::returnBook(std::string bookTitle)
@@ -176,12 +175,15 @@ bool Library::isBookInLibrary(std::string bookTitle)
 
 struct SmartBulb
 {
-    SmartBulb();
-    int watts;
-    float brightness;
-    bool isOn;
-    float totalEnergy;
-    float totalHoursOn;
+    SmartBulb()
+    {
+        std::cout << "Constructing a smart bulb!" << std::endl;
+    }
+    int watts {200};
+    float brightness {0.8f};
+    bool isOn = false;
+    float totalEnergy = 0.f;
+    float totalHoursOn {0.f}; // different formatting like this obviously isn't advised
 
     void toggle();
 
@@ -191,18 +193,18 @@ struct SmartBulb
 
 };
 
-SmartBulb::SmartBulb()
-{
-    watts = 200;
-    brightness = 0.8f;
-    isOn = false;
-    totalEnergy = 0.f;
-    totalHoursOn = 0.f;
-}
-
 void SmartBulb::toggle()
 {
-
+    isOn = !isOn;
+    if (isOn)
+    {
+        std::cout << "Smart bulb shining at " << brightness << " brightness" << std::endl;
+    }
+    else
+    {
+        totalEnergy += 0.1f;
+        std::cout << "Smart bulb is off." << std::endl;
+    }
 }
 
 void SmartBulb::toggleAfterDelay(float delay)
@@ -527,12 +529,20 @@ Thing 8) Synthesizer
  */
 struct Synthesizer
 {
-    Synthesizer();
     std::string waveShape;
     float amplitude;
     float attackTime;
     int maxPolyphony;
     float distortion;
+
+    Synthesizer()
+    {
+        waveShape = "sine";
+        amplitude = 1.0f;
+        attackTime = 2.0f;
+        maxPolyphony = 6;
+        distortion = 1.0f;
+    }
 
     void getPattern(PatternGenerator patternGen);
     void getUI();
@@ -540,14 +550,7 @@ struct Synthesizer
 
 };
 
-Synthesizer::Synthesizer()
-{
-    waveShape = "sine";
-    amplitude = 1.0f;
-    attackTime = 2.0f;
-    maxPolyphony = 6;
-    distortion = 1.0f;
-}
+
 
 void Synthesizer::getPattern(PatternGenerator patternGen)
 {
@@ -556,7 +559,8 @@ void Synthesizer::getPattern(PatternGenerator patternGen)
 
 void Synthesizer::getUI()
 {
-
+    std::cout << "attack time: " << attackTime << std::endl;
+    std::cout << "amplitude: " << amplitude << std::endl;
 }
 
 void Synthesizer::playAudio(float duration)
@@ -737,6 +741,25 @@ int main()
     std::cout << "don't repeat:"<< std::endl;
     ms.playSequence(false);
 
+    std::cout << "----------New ones start here---------" << std::endl;
+
+    Library lib;
+    lib.checkOutBook("To Kill a Mockingbird");
+
+    SmartBulb sb;
+    sb.toggle();
+    sb.toggle();
+    sb.brightness = 1.2f;
+    sb.toggle();
+    sb.toggle();
+    std::cout << "total energy used by bulb is " << sb.totalEnergy << std::endl;
+    sb.toggle();
+    sb.toggle();
+    std::cout << "total energy used by bulb is " << sb.totalEnergy << std::endl;
+
+    Synthesizer synth;
+    std::cout << synth.maxPolyphony << " notes at a time on the Synth" << std::endl;
+    synth.getUI();
 
     std::cout << "good to go!" << std::endl;
 }
