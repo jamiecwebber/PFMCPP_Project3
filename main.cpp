@@ -66,7 +66,7 @@ int main()
 
 
 
-
+FIXME: remove these relics from Part1
 /*
 1) Acoustic Guitar
 5 properties:
@@ -127,6 +127,7 @@ void AcousticGuitar::tuneString(int stringNumber, float tuningFrequency)
     tuningFrequency *= 1.5f;
 }
 
+FIXME: remove these relics from Part1
 /*
 2) Library
 5 properties:
@@ -180,6 +181,7 @@ bool Library::isBookInLibrary(std::string bookTitle)
     return true;
 }
 
+FIXME: remove these relics from Part1
 /*
 3) smart light bulb
 5 properties:
@@ -238,7 +240,7 @@ void SmartBulb::alertReplacement()
 
 }
 
-
+FIXME: remove these relics from Part1
 /*
 4) Cat
 5 properties:
@@ -290,7 +292,7 @@ void Cat::drink(float volumeOfWater = 0.2f)
     thirst -= volumeOfWater;
 }
 
-
+FIXME: remove these relics from Part1
 /*
 Thing 5) Harmonic set (generates a set of frequencies from two input frequencies)
 5 properties:
@@ -353,7 +355,7 @@ void HarmonicSet::playFiltered(float minFrequency, float maxFrequency, int genRu
     }
 }
 
-
+FIXME: remove these relics from Part1
 /*
 Thing 6) Rhythmic Rules
 5 properties:
@@ -442,6 +444,7 @@ void RhythmicRules::Meter::reset()
 
 }
 
+FIXME: remove these relics from Part1
 /*
 Thing 7) Pattern Generator
 5 properties:
@@ -535,6 +538,7 @@ void PatternGenerator::Pattern::stop()
 
 }
 
+FIXME: remove these relics from Part1
 /*
 Thing 8) Synthesizer
 5 properties:
@@ -589,6 +593,7 @@ void Synthesizer::playAudio(float duration)
     duration += 0.6f;
 }
 
+FIXME: remove these relics from Part1
 /*
 Thing 9) Distortion
 5 properties:
@@ -648,6 +653,7 @@ bool Distortion::toggleBypass(bool bypass)
     return !bypass;
 }
 
+FIXME: remove these relics from Part1
 /*
 10) Melodic Sequencer
 5 properties:
