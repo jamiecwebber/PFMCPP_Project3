@@ -65,22 +65,6 @@ int main()
 
 
 
-
-
-/*
-1) Acoustic Guitar
-5 properties:
-    1) Number of strings it has
-    2) Number of frets
-    3) Fret number of a capo
-    4) Year it was built
-    5) Whether or not it has amplification
-3 things it can do:
-    1) Play a single note
-    2) Play a chord
-    3) Tune its strings (you would want a nested type "string"?)
- */
-
 struct AcousticGuitar 
 {
     AcousticGuitar();
@@ -127,19 +111,7 @@ void AcousticGuitar::tuneString(int stringNumber, float tuningFrequency)
     tuningFrequency *= 1.5f;
 }
 
-/*
-2) Library
-5 properties:
-    1) Number of books
-    2) Number of members
-    3) Fee for returning books late
-    4) Number of books each member can have out at once
-    5) Duration that a member can take a book out for
-3 things it can do:
-    1) Check out a book
-    2) Return a book
-    3) Search whether a book is in the libarry
- */
+
 
 struct Library
 {
@@ -180,19 +152,7 @@ bool Library::isBookInLibrary(std::string bookTitle)
     return true;
 }
 
-/*
-3) smart light bulb
-5 properties:
-    1) Number of Watts
-    2) Brightness level
-    3) Whether it's currently on or not
-    4) Keeps track of total energy it has used
-    5) Keeps track of the total hours it's been on
-3 things it can do:
-    1) toggle on/off
-    2) turn off automatically after a given time
-    3) it can send a signal when it needs to be replaced
- */
+
 
 struct SmartBulb
 {
@@ -239,19 +199,6 @@ void SmartBulb::alertReplacement()
 }
 
 
-/*
-4) Cat
-5 properties:
-    1) Age
-    2) Whether or not it's male
-    3) Whether or not it's a tabby cat
-    4) How hungry it is
-    5) How thirsty it is
-3 things it can do:
-    1) It can purr
-    2) It can meow
-    3) It can drink water
- */
 struct Cat
 {
     Cat();
@@ -291,19 +238,6 @@ void Cat::drink(float volumeOfWater = 0.2f)
 }
 
 
-/*
-Thing 5) Harmonic set (generates a set of frequencies from two input frequencies)
-5 properties:
-    1) Bass Frequency
-    2) Generator Frequency 
-    3) Minimum output frequency
-    4) maximum output frequency
-    5) generator rule # (would select among a few pre-coded rules)
-3 things it can do:
-    1) calculate and output a set of frequencies
-    2) calculate statistics about the frequencies (how harmonically coherent they are, etc)
-    3) filter the frequency set according to certain rules
- */
 
 struct HarmonicSet
 {
@@ -354,19 +288,6 @@ void HarmonicSet::playFiltered(float minFrequency, float maxFrequency, int genRu
 }
 
 
-/*
-Thing 6) Rhythmic Rules
-5 properties:
-    1) density / note gap %
-    2) "convolution rate" (how complicated the rhythms are)
-    3) tempo
-    4) rate of variation (how far it randomly strays from the selected settings)
-    5) meter / pulse structure (this would have to be a UDT also)
-3 things it can do:
-    1) output a rhythm that controls the pattern generator
-    2) modify the rhythmic properties according to a control signal from the UI
-    3) modify the meter and tempo according to UI control
- */
 
 struct RhythmicRules
 {
@@ -442,19 +363,7 @@ void RhythmicRules::Meter::reset()
 
 }
 
-/*
-Thing 7) Pattern Generator
-5 properties:
-    1) "rootedness" (how often it plays the generator frequencies)
-    2) repetition rate (how likely to repeat notes)
-    3) step size (how far away in the set it will pick the next note)
-    4) variability rate
-    5) fractal dimension (would be used in the pattern calculation)
-3 things it can do:
-    1) receives inpulses from the rhythm generator
-    2) calculates next note based on current harmonic set
-    3) outputs control signals to the synth
- */
+
 
 struct PatternGenerator
 {
@@ -535,19 +444,7 @@ void PatternGenerator::Pattern::stop()
 
 }
 
-/*
-Thing 8) Synthesizer
-5 properties:
-    1) wave shape
-    2) amplitude
-    3) attack time
-    4) max polyphony
-    5) distortion
-3 things it can do:
-    1) respond to signals from the pattern generator
-    2) respond to signals from UI display
-    3) output audio
- */
+
 struct Synthesizer
 {
     std::string waveShape;
@@ -589,19 +486,7 @@ void Synthesizer::playAudio(float duration)
     duration += 0.6f;
 }
 
-/*
-Thing 9) Distortion
-5 properties:
-    1) brightness
-    2) number of echoes
-    3) room size
-    4) hipass filter cutoff
-    5) lopass filter cutoff
-3 things it can do:
-    1) process a sound input
-    2) calculate changes to its values
-    3) turn on/off bypass
- */
+
 struct Distortion
 {
     Distortion();
@@ -648,19 +533,7 @@ bool Distortion::toggleBypass(bool bypass)
     return !bypass;
 }
 
-/*
-10) Melodic Sequencer
-5 properties:
-    1) Harmonic set (to take pitches from)
-    2) Rhythmic rules (for deciding when to play what)
-    3) Pattern generator (brings together harmonic set and rhythm rules)
-    4) Synthesizer (selects/generates the actual sound)
-    5) Distortion
-3 things it can do:
-    1) It can play a melodic sequence
-    2) It can display patterns on the screen
-    3) It can accept user instructions
- */
+
 
 struct MelodicSequencer
 {
