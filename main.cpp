@@ -241,7 +241,7 @@ void Cat::drink(float volumeOfWater = 0.2f)
 
 struct HarmonicSet
 {
-    HarmonicSet();
+    HarmonicSet(float bass, float gen);
     float bassFrequency, genFrequency;
 
     void playSet(float minFrequency, float maxFrequency);
@@ -251,23 +251,32 @@ struct HarmonicSet
     void playFiltered(float minFrequency, float maxFrequency, int genRule);
 };
 
-HarmonicSet::HarmonicSet()
+// I made this a conditional constructor, I don't think we've covered that
+HarmonicSet::HarmonicSet(float bass, float gen)
 {
-    bassFrequency = 220.0f;
-    genFrequency = 440.0f;
+    bassFrequency = bass;
+    genFrequency = gen;
+    std::cout << bassFrequency << std::endl;
 }
 
+// Updated this function with a loop
 void HarmonicSet::playSet(float minFrequency, float maxFrequency)
 {
+    std::cout << "Harmonic set of bass " << bassFrequency << " and generator " << genFrequency << std::endl;
     float outputNote = (bassFrequency + genFrequency);
-    if (minFrequency < outputNote)
+    float previous = genFrequency;
+    while (outputNote < maxFrequency) 
     {
-        if (maxFrequency > outputNote)
+        if (minFrequency < outputNote)
         {
-            std::cout << outputNote << std::endl;
+            std::cout << outputNote << " ";
         }
+        outputNote += previous;
+        previous = outputNote;
     }
+    std::cout << std::endl;
 }
+
 
 float HarmonicSet::calculateHarmonicity()
 {
@@ -538,7 +547,7 @@ bool Distortion::toggleBypass(bool bypass)
 struct MelodicSequencer
 {
     MelodicSequencer();
-    HarmonicSet harmonicSet;
+    // HarmonicSet harmonicSet;
     RhythmicRules rhythmicRules;
     PatternGenerator patternGenerator;
     Synthesizer synthesizer;
@@ -592,7 +601,7 @@ int MelodicSequencer::getUI(int screenWidth, int screenHeight)
 int main()
 {
     Example::main();
-
+/*
     AcousticGuitar ag;
     ag.playChord("G");
     ag.playNote(6,0); // should be note 0
@@ -654,6 +663,13 @@ int main()
     Synthesizer synth;
     std::cout << synth.maxPolyphony << " notes at a time on the Synth" << std::endl;
     synth.getUI();
+*/
+    HarmonicSet harmonicSet = HarmonicSet(220.0f, 440.0f);
+    harmonicSet.playSet(220.0f, 22000.0f);
+    HarmonicSet harmonicSetTwo(100.0f, 360.0f);
+    harmonicSetTwo.playSet(10.f, 22000.0f);
+
+
 
     std::cout << "good to go!" << std::endl;
 }
