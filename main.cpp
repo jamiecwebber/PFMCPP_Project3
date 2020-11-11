@@ -603,7 +603,7 @@ int MelodicSequencer::getUI(int screenWidth, int screenHeight)
 int main()
 {
     Example::main();
-/*
+
     AcousticGuitar ag;
     ag.playChord("G");
     ag.playNote(6,0); // should be note 0
@@ -665,7 +665,7 @@ int main()
     Synthesizer synth;
     std::cout << synth.maxPolyphony << " notes at a time on the Synth" << std::endl;
     synth.getUI();
-*/
+
     HarmonicSet harmonicSet = HarmonicSet(220.0f, 440.0f);
     harmonicSet.playSet(220.0f, 22000.0f);
     HarmonicSet harmonicSetTwo(100.0f, 360.0f);
