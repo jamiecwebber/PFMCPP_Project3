@@ -256,10 +256,11 @@ HarmonicSet::HarmonicSet(float bass, float gen)
 {
     bassFrequency = bass;
     genFrequency = gen;
-    std::cout << bassFrequency << std::endl;
 }
 
 // Updated this function with a loop
+// The function calculates a set of frequencies by repeatedly adding the last two together, like in the fibonacci series
+// This involves creating a placeholder variable inside the scope of the while loop
 void HarmonicSet::playSet(float minFrequency, float maxFrequency)
 {
     std::cout << "Harmonic set of bass " << bassFrequency << " and generator " << genFrequency << std::endl;
@@ -271,8 +272,9 @@ void HarmonicSet::playSet(float minFrequency, float maxFrequency)
         {
             std::cout << outputNote << " ";
         }
+        float current = outputNote;
         outputNote += previous;
-        previous = outputNote;
+        previous = current;
     }
     std::cout << std::endl;
 }
@@ -668,6 +670,7 @@ int main()
     harmonicSet.playSet(220.0f, 22000.0f);
     HarmonicSet harmonicSetTwo(100.0f, 360.0f);
     harmonicSetTwo.playSet(10.f, 22000.0f);
+    std::cout << "Sum of bass and generator is " << harmonicSetTwo.calculateHarmonicity() << std::endl;
 
 
 
