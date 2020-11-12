@@ -524,6 +524,15 @@ Distortion::Distortion()
 void Distortion::processInput()
 {
     std::cout << "DISTORRTIIOOOOON"<< std::endl;
+    for (int n = numEchoes; n > 0; n -= 1)
+    {
+        std::cout << "DISTORRTI";
+        for (int m = n; m > 0; m -= 1)
+        {
+            std::cout << "O";
+        }
+        std::cout << "N" << std::endl;
+    }
 }
 
 float Distortion::calculateBrightness(float roomSize, float hiPass, float loPass)
@@ -666,12 +675,19 @@ int main()
     std::cout << synth.maxPolyphony << " notes at a time on the Synth" << std::endl;
     synth.getUI();
 
+    std::cout << "----------Part 5 starts here---------" << std::endl;
+
     HarmonicSet harmonicSet = HarmonicSet(220.0f, 440.0f);
     harmonicSet.playSet(220.0f, 22000.0f);
     HarmonicSet harmonicSetTwo(100.0f, 360.0f);
     harmonicSetTwo.playSet(10.f, 22000.0f);
     std::cout << "Sum of bass and generator is " << harmonicSetTwo.calculateHarmonicity() << std::endl;
 
+    Distortion ds2;
+    ds2.processInput();
+
+    ds2.numEchoes = 15;
+    ds2.processInput();
 
 
     std::cout << "good to go!" << std::endl;
