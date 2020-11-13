@@ -241,7 +241,7 @@ void Cat::drink(float volumeOfWater = 0.2f)
 
 struct HarmonicSet
 {
-    HarmonicSet();
+    HarmonicSet(float bass, float gen);
     float bassFrequency, genFrequency;
 
     void playSet(float minFrequency, float maxFrequency);
@@ -251,23 +251,34 @@ struct HarmonicSet
     void playFiltered(float minFrequency, float maxFrequency, int genRule);
 };
 
-HarmonicSet::HarmonicSet()
+// I made this a conditional constructor, I don't think we've covered that
+HarmonicSet::HarmonicSet(float bass, float gen)
 {
-    bassFrequency = 220.0f;
-    genFrequency = 440.0f;
+    bassFrequency = bass;
+    genFrequency = gen;
 }
 
+// Updated this function with a loop
+// The function calculates a set of frequencies by repeatedly adding the last two together, like in the fibonacci series
+// This involves creating a placeholder variable inside the scope of the while loop
 void HarmonicSet::playSet(float minFrequency, float maxFrequency)
 {
+    std::cout << "Harmonic set of bass " << bassFrequency << " and generator " << genFrequency << std::endl;
     float outputNote = (bassFrequency + genFrequency);
-    if (minFrequency < outputNote)
+    float previous = genFrequency;
+    while (outputNote < maxFrequency) 
     {
-        if (maxFrequency > outputNote)
+        if (minFrequency < outputNote)
         {
-            std::cout << outputNote << std::endl;
+            std::cout << outputNote << " ";
         }
+        float current = outputNote;
+        outputNote += previous;
+        previous = current;
     }
+    std::cout << std::endl;
 }
+
 
 float HarmonicSet::calculateHarmonicity()
 {
@@ -513,6 +524,15 @@ Distortion::Distortion()
 void Distortion::processInput()
 {
     std::cout << "DISTORRTIIOOOOON"<< std::endl;
+    for (int n = numEchoes; n > 0; n -= 1)
+    {
+        std::cout << "DISTORRTI";
+        for (int m = n; m > 0; m -= 1)
+        {
+            std::cout << "O";
+        }
+        std::cout << "N" << std::endl;
+    }
 }
 
 float Distortion::calculateBrightness(float roomSize, float hiPass, float loPass)
@@ -538,7 +558,7 @@ bool Distortion::toggleBypass(bool bypass)
 struct MelodicSequencer
 {
     MelodicSequencer();
-    HarmonicSet harmonicSet;
+    // HarmonicSet harmonicSet;
     RhythmicRules rhythmicRules;
     PatternGenerator patternGenerator;
     Synthesizer synthesizer;
@@ -654,6 +674,21 @@ int main()
     Synthesizer synth;
     std::cout << synth.maxPolyphony << " notes at a time on the Synth" << std::endl;
     synth.getUI();
+
+    std::cout << "----------Part 5 starts here---------" << std::endl;
+
+    HarmonicSet harmonicSet = HarmonicSet(220.0f, 440.0f);
+    harmonicSet.playSet(220.0f, 22000.0f);
+    HarmonicSet harmonicSetTwo(100.0f, 360.0f);
+    harmonicSetTwo.playSet(10.f, 22000.0f);
+    std::cout << "Sum of bass and generator is " << harmonicSetTwo.calculateHarmonicity() << std::endl;
+
+    Distortion ds2;
+    ds2.processInput();
+
+    ds2.numEchoes = 15;
+    ds2.processInput();
+
 
     std::cout << "good to go!" << std::endl;
 }
